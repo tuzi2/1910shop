@@ -16,3 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/goods/detail','Goods\GoodsController@detail');//商品详情
+
+Route::get('/user/reg','User\UserController@reg');//注册页面
+Route::post('/user/regdo','User\UserController@regdo');//注册
+
+Route::get('/user/login','User\UserController@login');//登录页面
+Route::post('/user/logindo','User\UserController@logindo');//登录
