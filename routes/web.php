@@ -22,3 +22,5 @@ Route::post('/user/regdo','User\UserController@regdo');//注册
 
 Route::get('/user/login','User\UserController@login');//登录页面
 Route::post('/user/logindo','User\UserController@logindo');//登录
+
+Route::get('/user/center','User\UserController@center');//个人中心

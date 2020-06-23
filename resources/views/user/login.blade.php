@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token()}}">
 </head>
 <body>
+<center>还没注册？快进行<a href="{{url('/user/reg')}}" class="btn btn-info">注册</a></center>
 <center><h2>登录页面</h2></center>
 <form class="form-horizontal" role="form" method="post" action="{{url('user/logindo')}}">
     @csrf

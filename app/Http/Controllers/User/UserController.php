@@ -14,22 +14,6 @@ class UserController extends Controller
     }
     //进行注册
     public function regdo(Request $request){
-//        $data=request()->except('_token');
-//        $validator = Validator::make($data,[
-//            'user_name' => 'required|unique:user',
-//            'password' => 'required',
-//            'email' => 'required',
-//        ],[
-//            'user_name.required'=>'名字必填',
-//            'user_name.unique'=>'名字已存在',
-//            'password.required'=>'密码必填',
-//            'email.required'=>'邮箱必填',
-//        ]);
-//        if ($validator->fails()){
-//            return redirect('user/reg')
-//                ->withErrors($validator)
-//                ->withInput();
-//        }
         $password1 = $request->input("password");
         $password2 = $request->input("password2");
         $user_name = $request->input("user_name");
@@ -75,9 +59,25 @@ class UserController extends Controller
         //验证密码
         $res = password_verify($password,$user->password);
         if($res){
+            //向客户端设置cookie
+            setcookie('uid',$user->user_id,time()+3600,'/');
+            setcookie('user_name',$user->user_name,time()+3600,'/');
+            header('refresh:2;url=/user/center');
             echo "登录成功";
         }else{
-            echo "登录失败";
+            header('refresh:2;url=/user/login');
+            echo "登录失败，请重新登陆";
+        }
+    }
+    public function center(){
+        //判断用户是否登陆
+        //echo '<pre>';print_r($_COOKIE);echo '</pre>';
+        if(isset($_COOKIE['uid']) && isset($_COOKIE['user_name'])){
+            return view('user.center');
+        }else{
+            header('refresh:2;url=/user/login');
+            echo "未登录，请登陆";
+            //return redirect('/user/login');
         }
     }
 }
